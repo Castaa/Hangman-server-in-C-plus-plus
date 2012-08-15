@@ -335,7 +335,7 @@ int main(int argc, char *argv[])
             memcpy(sptr, wordVector[randIndex].c_str(), wordVector[randIndex].length()+1);
             sptr += wordVector[randIndex].length() + 1;
 
-             cout << "\""<< wordVector[randIndex] << "'\" ";
+             cout << "\""<< wordVector[randIndex] << "\" ";
           }
           cout << endl;
           lEchoed += (long)send(sd2, sendBuffer, sptr-sendBuffer, 0);
@@ -355,26 +355,20 @@ int main(int argc, char *argv[])
 //    puts("Press a key!");
 //  printf("You pressed '%c'!\n", getchar());
 
-      /////////////lEchoed+=(long)send(sd2,buffer,n,0); /*echoed back to client*/
-
       n = recv(sd2, buffer, sizeof(buffer), 0); /*see if there's more*/
       lRecvd+=(long)n;
     }
-    /*output statistics*/
+
+    // output statistics
     printf("\n\nNumber of data bits received: %ld\n",lRecvd);
     printf("Number of data bits sent: %ld\n",lEchoed);
     //printf("Number of segments received: %d\n",iRecvdp);
     //printf("Number of segments echoed: %d\n",iEchoedp);
-
-    // Segments indicated may not be the true number of segments received and echoed.
-    // This is because we counting the number of calls of send(...) and recv(...), which
-    // also depends on the application buffer size, just the tcp buffer size and MTU.
-
     cout << "-------------------------------" << endl;
+
     close(sd2);
   }
 
-  //exit(0);
   return 0;
 }
 
